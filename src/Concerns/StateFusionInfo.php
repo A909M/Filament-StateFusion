@@ -15,7 +15,7 @@ trait StateFusionInfo
     public static function getStatesLabel($model): array
     {
         return self::getStateMapping()->mapWithKeys(function ($stateClass) use ($model) {
-            return [$stateClass::$name => (new $stateClass($model))->getLabel() ?? $stateClass::$name];
+            return [$stateClass::getMorphClass() => (new $stateClass($model))->getLabel() ?? $stateClass::getMorphClass()];
         })->toArray();
     }
 
@@ -30,10 +30,10 @@ trait StateFusionInfo
             $instance = new $stateClass($model);
             // Check if the class implements HasColor interface before calling getColor
             if (method_exists($instance, 'getColor')) {
-                return [$stateClass::$name => $instance->getColor()];
+                return [$stateClass::getMorphClass() => $instance->getColor()];
             }
 
-            return [$stateClass::$name => null];
+            return [$stateClass::getMorphClass() => null];
         })->toArray();
     }
 
@@ -48,10 +48,10 @@ trait StateFusionInfo
             $instance = new $stateClass($model);
             // Check if the class implements HasDescription interface before calling getDescription
             if (method_exists($instance, 'getDescription')) {
-                return [$stateClass::$name => $instance->getDescription()];
+                return [$stateClass::getMorphClass() => $instance->getDescription()];
             }
 
-            return [$stateClass::$name => null];
+            return [$stateClass::getMorphClass() => null];
         })->toArray();
     }
 
@@ -66,10 +66,10 @@ trait StateFusionInfo
             $instance = new $stateClass($model);
             // Check if the class implements HasIcon interface before calling getIcon
             if (method_exists($instance, 'getIcon')) {
-                return [$stateClass::$name => $instance->getIcon()];
+                return [$stateClass::getMorphClass() => $instance->getIcon()];
             }
 
-            return [$stateClass::$name => null];
+            return [$stateClass::getMorphClass() => null];
         })->toArray();
     }
 }
