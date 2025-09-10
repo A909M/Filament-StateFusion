@@ -8,7 +8,6 @@ use A909M\FilamentStateFusion\Concerns\ResolvesActionAttributes;
 use A909M\FilamentStateFusion\Contracts\HasStateAttributesContract;
 use A909M\FilamentStateFusion\Contracts\HasStateFusionAction;
 use Filament\Actions\Action;
-use Illuminate\Database\Eloquent\Model;
 
 class StateFusionAction extends Action implements HasStateAttributesContract, HasStateFusionAction
 {
@@ -40,18 +39,5 @@ class StateFusionAction extends Action implements HasStateAttributesContract, Ha
         });
         // $this->badge();
         // $this->button();
-        $this->schema(function () {
-            if ($this->hasTransitionClass() && method_exists($this->getTransitionClass(), 'form')) {
-                return app($this->getTransitionClass())->form();
-            }
-
-            return null;
-        });
-        $this->modalDescription(
-            fn (Model $record) => $this->resolveDescription($record),
-        );
-        $this->modalIcon(fn () => $this->getIcon());
-        $this->modalIconColor(fn () => $this->getColor());
-        $this->requiresConfirmation();
     }
 }
