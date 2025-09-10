@@ -8,6 +8,7 @@ use A909M\FilamentStateFusion\Concerns\ResolvesActionAttributes;
 use A909M\FilamentStateFusion\Contracts\HasStateAttributesContract;
 use A909M\FilamentStateFusion\Contracts\HasStateFusionAction;
 use Filament\Actions\Action;
+use Illuminate\Database\Eloquent\Model;
 
 class StateFusionAction extends Action implements HasStateAttributesContract, HasStateFusionAction
 {
