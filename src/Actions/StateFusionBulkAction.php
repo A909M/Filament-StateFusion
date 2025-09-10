@@ -1,6 +1,6 @@
 <?php
 
-namespace A909M\FilamentStateFusion\Tables\Actions;
+namespace A909M\FilamentStateFusion\Actions;
 
 use A909M\FilamentStateFusion\Concerns\HasStateAttributes;
 use A909M\FilamentStateFusion\Concerns\InteractsWithStateAction;
@@ -25,10 +25,10 @@ class StateFusionBulkAction extends BulkAction implements HasStateAttributesCont
         $this->setActionAttributes();
         $this->action(function (Collection $records, $data) {
             if (empty($data)) {
-                $records->each(fn($record) => ($record->{$this->getAttribute()}?->equals($this->getFromState())
+                $records->each(fn ($record) => ($record->{$this->getAttribute()}?->equals($this->getFromState())
                     && in_array($this->getToState()::getMorphClass(), $record->{$this->getAttribute()}->transitionableStates())) ? $record->{$this->getAttribute()}->transitionTo($this->getToStateClass()) : null);
             } else {
-                $records->each(fn($record) => ($record->{$this->getAttribute()}?->equals($this->getFromState())
+                $records->each(fn ($record) => ($record->{$this->getAttribute()}?->equals($this->getFromState())
                     && in_array($this->getToState()::getMorphClass(), $record->{$this->getAttribute()}->transitionableStates())) ? $record->{$this->getAttribute()}->transitionTo($this->getToStateClass(), $data[array_key_first($data)]) : null);
             }
         });
