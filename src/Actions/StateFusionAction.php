@@ -19,6 +19,10 @@ class StateFusionAction extends Action implements HasStateAttributesContract, Ha
     {
         parent::setUp();
 
+        $this->label(fn (Model $record) => $this->resolveLabel($record->{$this->getAttribute()}));
+        $this->color(fn (Model $record) => $this->resolveColor($record->{$this->getAttribute()}));
+        $this->icon(fn (Model $record) => $this->resolveIcon($record->{$this->getAttribute()}));
+        $this->tooltip(fn (Model $record) => $this->resolveDescription($record->{$this->getAttribute()}));
         $this->setActionAttributes();
 
         $this->hidden(

@@ -22,6 +22,10 @@ class StateFusionBulkAction extends BulkAction implements HasStateAttributesCont
     protected function setUp(): void
     {
         parent::setUp();
+        $this->label(fn () => $this->resolveLabel());
+        $this->color(fn () => $this->resolveColor());
+        $this->icon(fn () => $this->resolveIcon());
+        $this->tooltip(fn () => $this->resolveDescription());
         $this->setActionAttributes();
         $this->action(function (Collection $records, $data) {
             if (empty($data)) {

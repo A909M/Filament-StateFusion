@@ -7,21 +7,21 @@ use Filament\Support\Contracts\HasDescription;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\ModelStates\State;
 
 trait ResolvesActionAttributes
 {
     private function resolveFromTransitionOrState(
-        Model $record,
+        State | string | null $state,
         string $interface,
         string $method,
     ): mixed {
-        $from = $record->{$this->getAttribute()};
-        $to = $this->getToState();
-        $toInstance = new $to($record);
+        $from = $state ?? $this->getFromState();
+        $to = $this->getToStateClass();
         $transitionClass = $from::config()
             ->resolveTransitionClass(
                 $from::getMorphClass(),
-                $toInstance::getMorphClass(),
+                $to::getMorphClass(),
             );
 
         if (
@@ -32,44 +32,44 @@ trait ResolvesActionAttributes
             return app($transitionClass)->{$method}();
         }
 
-        if ($toInstance && is_subclass_of($toInstance, $interface)) {
-            return $toInstance->{$method}();
+        if ($to && is_subclass_of($to, $interface)) {
+            return $to->{$method}();
         }
 
         return null;
     }
 
-    private function resolveLabel(Model $record): ?string
+    private function resolveLabel(State | string | null $state): ?string
     {
         return $this->resolveFromTransitionOrState(
-            $record,
+            $state,
             HasLabel::class,
             'getLabel',
         );
     }
 
-    private function resolveColor(Model $record): ?string
+    private function resolveColor(State | string | null $state): ?string
     {
         return $this->resolveFromTransitionOrState(
-            $record,
+            $state,
             HasColor::class,
             'getColor',
         );
     }
 
-    private function resolveIcon(Model $record): ?string
+    private function resolveIcon(State | string | null $state): ?string
     {
         return $this->resolveFromTransitionOrState(
-            $record,
+            $state,
             HasIcon::class,
             'getIcon',
         );
     }
 
-    private function resolveDescription(Model $record): ?string
+    private function resolveDescription(State | string | null $state): ?string
     {
         return $this->resolveFromTransitionOrState(
-            $record,
+            $state,
             HasDescription::class,
             'getDescription',
         );
@@ -77,16 +77,10 @@ trait ResolvesActionAttributes
 
     protected function setActionAttributes(): void
     {
-        $this->label(fn (Model $record) => $this->resolveLabel($record));
-        $this->color(fn (Model $record) => $this->resolveColor($record));
-        $this->icon(fn (Model $record) => $this->resolveIcon($record));
-        $this->tooltip(fn (Model $record) => $this->resolveDescription($record));
 
         // Model
         $this->requiresConfirmation();
-        $this->modalDescription(
-            fn (Model $record) => $this->resolveDescription($record),
-        );
+        $this->modalDescription(fn () => $this->getTooltip());
         $this->modalIcon(fn () => $this->getIcon());
         $this->modalIconColor(fn () => $this->getColor());
 
