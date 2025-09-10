@@ -80,5 +80,6 @@ trait ResolvesActionAttributes
         $this->label(fn (Model $record) => $this->resolveLabel($record));
         $this->color(fn (Model $record) => $this->resolveColor($record));
         $this->icon(fn (Model $record) => $this->resolveIcon($record));
+        $this->tooltip(fn (Model $record) => $this->resolveDescription($record));
     }
 }
