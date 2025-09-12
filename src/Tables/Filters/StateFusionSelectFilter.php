@@ -10,6 +10,6 @@ class StateFusionSelectFilter extends SelectFilter
     protected function setUp(): void
     {
         parent::setUp();
-        $this->options(fn(Table $table) => (new ($table->getModel())())->getCasts()[$this->getAttribute()]::getStatesLabel($table->getModel()));
+        $this->options(fn (Table $table) => (new ($table->getModel())())->getCasts()[$this->getAttribute()]::getStatesLabel($table->getModel()));
     }
 }
