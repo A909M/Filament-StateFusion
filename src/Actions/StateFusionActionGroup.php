@@ -22,7 +22,6 @@ class StateFusionActionGroup extends ActionGroup
     protected function setUp(): void
     {
         parent::setUp();
-        $this->defaultTriggerView(static::ICON_BUTTON_VIEW);
 
         // $this->actions($this->generateStateTransitionActions($this->getStateClass(), $this->getName()));
     }
