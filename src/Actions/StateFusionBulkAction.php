@@ -29,11 +29,21 @@ class StateFusionBulkAction extends BulkAction implements HasStateAttributesCont
         $this->setActionAttributes();
         $this->action(function (Collection $records, $data) {
             if (empty($data)) {
-                $records->each(fn ($record) => ($record->{$this->getAttribute()}?->equals($this->getFromState())
-                    && in_array($this->getToState()::getMorphClass(), $record->{$this->getAttribute()}->transitionableStates())) ? $record->{$this->getAttribute()}->transitionTo($this->getToStateClass()) : null);
+                $records->each(fn ($record) => $record->{$this->getAttribute()}?->equals($this->getFromState())
+                && in_array(
+                    $this->getToState()::getMorphClass(),
+                    $record->{$this->getAttribute()}->transitionableStates(),
+                )
+                    ? $record->{$this->getAttribute()}->transitionTo($this->getToStateClass())
+                    : null);
             } else {
-                $records->each(fn ($record) => ($record->{$this->getAttribute()}?->equals($this->getFromState())
-                    && in_array($this->getToState()::getMorphClass(), $record->{$this->getAttribute()}->transitionableStates())) ? $record->{$this->getAttribute()}->transitionTo($this->getToStateClass(), $data[array_key_first($data)]) : null);
+                $records->each(fn ($record) => $record->{$this->getAttribute()}?->equals($this->getFromState())
+                && in_array(
+                    $this->getToState()::getMorphClass(),
+                    $record->{$this->getAttribute()}->transitionableStates(),
+                )
+                    ? $record->{$this->getAttribute()}->transitionTo($this->getToStateClass(), $data)
+                    : null);
             }
         });
     }
