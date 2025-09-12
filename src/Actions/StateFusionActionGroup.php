@@ -1,8 +1,7 @@
 <?php
 
-namespace FilamentStateFusion\Actions;
+namespace A909M\FilamentStateFusion\Actions;
 
-use A909M\FilamentStateFusion\Actions\StateFusionAction;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\Concerns\HasName;
 use Illuminate\Support\Str;
@@ -13,7 +12,7 @@ class StateFusionActionGroup extends ActionGroup
 
     public $stateClass = null;
 
-    public function __construct(null|string $name, null|string $stateClass = null)
+    public function __construct(?string $name, ?string $stateClass = null)
     {
         $this->name($name);
         $this->stateClass($stateClass);
