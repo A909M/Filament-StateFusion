@@ -28,23 +28,19 @@ class StateFusionBulkAction extends BulkAction implements HasStateAttributesCont
         $this->tooltip(fn () => $this->resolveDescription($this->getFromState()));
         $this->setActionAttributes();
         $this->action(function (Collection $records, $data) {
-            if (empty($data)) {
-                $records->each(fn ($record) => $record->{$this->getAttribute()}?->equals($this->getFromState())
-                && in_array(
-                    $this->getToState()::getMorphClass(),
-                    $record->{$this->getAttribute()}->transitionableStates(),
-                )
-                    ? $record->{$this->getAttribute()}->transitionTo($this->getToStateClass())
-                    : null);
-            } else {
-                $records->each(fn ($record) => $record->{$this->getAttribute()}?->equals($this->getFromState())
-                && in_array(
-                    $this->getToState()::getMorphClass(),
-                    $record->{$this->getAttribute()}->transitionableStates(),
-                )
-                    ? $record->{$this->getAttribute()}->transitionTo($this->getToStateClass(), $data)
-                    : null);
-            }
+            $records->each(callback: function ($record) use ($data) {
+                if ($record->{$this->getAttribute()}->equals($this->getFromState())) {
+                    if (empty($data)) {
+                        if ($record->{$this->getAttribute()}->canTransitionTo($this->getToStateClass())) {
+                            return $record->{$this->getAttribute()}->transitionTo($this->getToStateClass());
+                        }
+                    } else {
+                        if ($record->{$this->getAttribute()}->canTransitionTo($this->getToStateClass(), $data)) {
+                            return $record->{$this->getAttribute()}->transitionTo($this->getToStateClass(), $data);
+                        }
+                    }
+                }
+            });
         });
     }
 
