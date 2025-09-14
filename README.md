@@ -1,5 +1,6 @@
 ![Description](images/StateFusion.png)
 # Filament-StateFusion
+**Brings the full power of Spatie Laravel Model States to Filament with zero complexity and beautiful visual workflows.**
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/a909m/filament-statefusion.svg?style=flat-square)](https://packagist.org/packages/a909m/filament-statefusion)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/a909m/filament-statefusion/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/a909m/filament-statefusion/actions?query=workflow%3Arun-tests+branch%3Amain)
