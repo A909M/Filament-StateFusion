@@ -59,8 +59,8 @@ Install the package via Composer:
 
 | Plugin Version | Filament Version | Readme |
 |----------------|------------------|-------------|
-| 1.x            | 3.x              |  [Link](https://github.com/A909M/Filament-StateFusion/main/README.md)      |
-| 2.x            | 4.x              |  [Link](https://github.com/A909M/Filament-StateFusion/2.x/README.md)     |
+| 1.x            | 3.x              |  [Link](https://github.com/A909M/Filament-StateFusion/blob/v1.x/README.md)      |
+| 2.x            | 4.x              |  [Link](https://github.com/A909M/Filament-StateFusion/blob/2.x/README.md)     |
 
 
 ```bash
