@@ -268,14 +268,13 @@ StateFusionSelectColumn::make('status')
 ```
 
 #### TextColumn
-You can also use the standard `TextColumn` to display the state as a badge. If your state classes implement `HasColor` and `HasIcon`, the badge will automatically reflect the state's color, and you can display an icon.
+You can also use the standard `TextColumn` to display the state as a badge. When your state classes implement `HasLabel`, `HasColor`, and `HasIcon` interfaces, the badge will automatically display the appropriate label, color, and icon without any additional configuration.
 
 ```php
 use Filament\Tables\Columns\TextColumn;
 
 TextColumn::make('status')
-    ->badge()
-    ->icon(fn ($record) => $record->status->getIcon());
+    ->badge(),
 ```
 
 ### Table Filter
@@ -315,14 +314,13 @@ StateFusionBulkAction::make('approve')
 ### Infolist Entries
 
 #### TextEntry
-Similar to the table column, you can use the standard `TextEntry` in your infolists to display the model state as a badge with an icon and color.
+Similar to the table column, you can use the standard `TextEntry` in your infolists to display the model state as a badge. When your state classes implement `HasLabel`, `HasColor`, and `HasIcon` interfaces, the badge will automatically display the appropriate label, color, and icon without any additional configuration.
 
 ```php
 use Filament\Infolists\Components\TextEntry;
 
 TextEntry::make('status')
-    ->badge()
-    ->icon(fn ($record) => $record->status->getIcon());
+    ->badge(),
 ```
 
 ### Page Actions
