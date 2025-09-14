@@ -225,27 +225,6 @@ use A909M\FilamentStateFusion\Tables\Filters\StateFusionSelectFilter;
 StateFusionSelectFilter::make('status'),
 ```
 
-### Table Actions
-
-#### StateFusionTableAction
-Add state transition actions to your table rows.
-
-```php
-use A909M\FilamentStateFusion\Tables\Actions\StateFusionTableAction;
-
-StateFusionTableAction::make('approve')
-    ->transitionTo(ApprovedState::class),
-```
-
-#### StateFusionBulkAction
-Transition multiple records at once.
-
-```php
-use A909M\FilamentStateFusion\Tables\Actions\StateFusionBulkAction;
-
-StateFusionBulkAction::make('approve')
-    ->transition(PendingState::class,ApprovedState::class),
-```
 
 ### Infolist Entries
 
@@ -259,19 +238,39 @@ TextEntry::make('status')
     ->badge(),
 ```
 
-### Page Actions
+### Actions
 
 #### StateFusionAction
-Create actions to transition between states from a page.
+Single record state transitions:
 
 ```php
 use A909M\FilamentStateFusion\Actions\StateFusionAction;
+use App\Models\States\ProcessingState;
+
 
 StateFusionAction::make('approve')
-    ->transitionTo(ApprovedState::class),
+    ->transitionTo(ProcessingState::class),
+
 ```
 
----
+#### StateFusionBulkAction
+Bulk state transitions with validation:
+
+```php
+use A909M\FilamentStateFusion\Actions\StateFusionBulkAction;
+
+StateFusionBulkAction::make('bulkProcess')
+    ->transition(PendingState::class, ProcessingState::class),
+```
+### Automatic Action Groups
+
+Generate all possible transitions automatically:
+
+```php
+use A909M\FilamentStateFusion\Actions\StateFusionActionGroup;
+
+StateFusionActionGroup::generate('status', OrderState::class)
+```
 
 
 ## Customization
