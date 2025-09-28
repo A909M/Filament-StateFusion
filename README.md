@@ -228,7 +228,7 @@ StateFusionSelectFilter::make('status'),
 
 ### Listing Tabs
 
-Filter records using tabs on the listing page:
+Filter records using tabs on the listing page (see [Filament Tabs Documentation](https://filamentphp.com/docs/4.x/resources/listing-records#using-tabs-to-filter-the-records)):
 
 ```php
 use A909M\FilamentStateFusion\StateFusionTabs;
