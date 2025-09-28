@@ -226,6 +226,30 @@ use A909M\FilamentStateFusion\Tables\Filters\StateFusionSelectFilter;
 StateFusionSelectFilter::make('status'),
 ```
 
+### Listing Tabs
+
+Filter records using tabs on the listing page (see [Filament Tabs Documentation](https://filamentphp.com/docs/4.x/resources/listing-records#using-tabs-to-filter-the-records)):
+
+```php
+use A909M\FilamentStateFusion\StateFusionTabs;
+
+public function getTabs(): array
+{
+    return StateFusionTabs::make($this->getModel())->toArray();
+}
+```
+
+Options:
+
+```php
+// With "All" tab and custom attribute
+StateFusionTabs::make($this->getModel())
+    ->includeAll()
+    ->badge(false) // Disabled the badge
+    ->attribute('status') // Use a specific state attribute (if your model has multiple state attributes)
+    ->toArray()
+```
+
 
 ### Infolist Entries
 
