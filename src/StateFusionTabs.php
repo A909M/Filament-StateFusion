@@ -59,9 +59,6 @@ class StateFusionTabs
     protected function generateTabs(): array
     {
 
-        $modelInstance = app($this->model);
-        $abstractState = $modelInstance->getCasts()[$this->getAttribute()];
-
         $tabs = [];
 
         // Add "All" tab if requested
@@ -77,7 +74,8 @@ class StateFusionTabs
         }
 
         // Generate state-specific tabs
-        $states = $abstractState::all();
+        $states = $this->getAbstractStateClass()::all();
+
         foreach ($states as $key => $value) {
             $state = new $value(null);
 
@@ -98,6 +96,13 @@ class StateFusionTabs
         $this->tabs = $tabs;
 
         return $tabs;
+    }
+
+    protected function getAbstractStateClass(): string
+    {
+        $modelInstance = app($this->model);
+
+        return $modelInstance->getCasts()[$this->getAttribute()];
     }
 
     public function toArray(): array
