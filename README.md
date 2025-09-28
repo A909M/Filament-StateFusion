@@ -235,7 +235,7 @@ use A909M\FilamentStateFusion\StateFusionTabs;
 
 public function getTabs(): array
 {
-    return StateFusionTabs::make(Order::class)->toArray();
+    return StateFusionTabs::make($this->getModel())->toArray();
 }
 ```
 
@@ -243,7 +243,7 @@ Options:
 
 ```php
 // With "All" tab and custom attribute
-StateFusionTabs::make(Order::class)
+StateFusionTabs::make($this->getModel())
     ->includeAll()
     ->badge(false) // Disabled the badge
     ->attribute('status') // Use a specific state attribute (if your model has multiple state attributes)
