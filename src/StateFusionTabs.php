@@ -1,6 +1,6 @@
 <?php
 
-namespace A909M\StateFusion;
+namespace A909M\FilamentStateFusion;
 
 use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
