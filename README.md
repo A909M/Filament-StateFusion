@@ -80,6 +80,22 @@ Finally, you can start using the components and actions provided by this plugin 
 
 ---
 
+## Understanding State Management
+
+This plugin builds on [Spatie Laravel Model States](https://spatie.be/docs/laravel-model-states), which provides:
+
+- **State Classes**: Each state is a separate class with its own behavior and logic
+- **State Transitions**: Define which state changes are allowed (e.g., `Pending` → `Processing`)
+- **Transition Classes**: Optional classes for complex transitions that need additional data or logic
+- **Type Safety**: Your IDE knows which states and methods are available
+
+Example: An order can be `Pending`, `Processing`, `Shipped`, or `Cancelled`. You define:
+- Which transitions are valid (`Pending` can become `Processing`, but `Shipped` cannot become `Pending`)
+- What happens during each transition (send emails, update timestamps, etc.)
+
+**StateFusion makes these states visual and interactive in Filament** with dropdowns, badges, filters, and action buttons.
+
+---
 
 ## Getting Started
 
@@ -111,6 +127,8 @@ abstract class OrderState extends State implements HasFilamentStateFusion
 }
 
 ```
+
+> **New to Spatie Laravel Model States?** Read their [introduction](https://spatie.be/docs/laravel-model-states/v2/01-introduction) first to understand states, transitions, and the state pattern.
 
 ### 2. Configure Your Model
 
