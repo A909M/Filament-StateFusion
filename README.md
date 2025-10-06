@@ -25,7 +25,7 @@ Perfect for order processing, publishing workflows, approval systems, and any ap
 - Bulk state transitions with validation
 
 🛠 **Developer Experience**
-- Out-of-the-box support for [Spatie Laravel Model States](https://spatie.be.docs/laravel-model-states)
+- Out-of-the-box support for [Spatie Laravel Model States](https://spatie.be/docs/laravel-model-states)
 - Custom transition forms for collecting additional data  
 - Automatic state validation and transition rules
 - Compatible with Filament v4 dark mode
