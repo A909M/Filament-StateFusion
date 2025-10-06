@@ -403,56 +403,66 @@ final class ToCancelled extends Transition implements HasLabel, HasColor, HasIco
 
 ### Custom Transitions with Forms
 
-Create transitions that collect additional data:
+Sometimes you need to collect additional information when transitioning between states. StateFusion makes this easy by letting you add a `form()` method to your [custom transition classes](https://spatie.be/docs/laravel-model-states/v2/working-with-transitions/02-custom-transition-classes).
+
+**Example: Cancelling an order with a reason**
 
 ```php
 <?php
 
-use Filament\Forms\Components\{Textarea, DateTimePicker};
+use Filament\Forms\Components\Textarea;
+use Filament\Support\Colors\Color;
 use Filament\Support\Contracts\{HasLabel, HasColor, HasIcon};
 use Spatie\ModelStates\Transition;
 
-final class ShipOrder extends Transition implements HasLabel, HasColor, HasIcon
+final class CancelOrder extends Transition implements HasLabel, HasColor, HasIcon
 {
-    private Order $order;
+    public function __construct(
+        private Order $order,
+        private ?array $data = null
+    ) {}
 
-    private array|null $data;
+    public function handle(): Order
+    {
+        $this->order->state = new CancelledState($this->order);
+        $this->order->cancellation_reason = $this->data['reason'];
+        $this->order->cancelled_at = now();
+        $this->order->save();
 
-    public function __construct(Order $order, array|null $data = null)
-    {
-        $this->order = $order;
-        $this->data = $data;
-    }
-    public function getLabel(): string
-    {
-        return __('Ship Order');
-    }
-
-    public function getColor(): string | array
-    {
-        return Color::Green;
-    }
-
-    public function getIcon(): string
-    {
-        return 'heroicon-o-truck';
+        return $this->order;
     }
 
     public function form(): array
     {
         return [
-            Textarea::make('tracking_number')
-                ->label('Tracking Number')
-                ->required(),
-            
-            DateTimePicker::make('shipped_at')
-                ->label('Ship Date')
-                ->default(now())
-                ->required(),
+            Textarea::make('reason')
+                ->label('Cancellation Reason')
+                ->placeholder('Why are you cancelling this order?')
+                ->required()
+                ->maxLength(500),
         ];
+    }
+
+    public function getLabel(): string
+    {
+        return 'Cancel Order';
+    }
+
+    public function getColor(): string | array
+    {
+        return Color::Red;
+    }
+
+    public function getIcon(): string
+    {
+        return 'heroicon-o-x-circle';
     }
 }
 ```
+
+The form data is automatically passed to your transition's `$data` parameter, which you can then use in the `handle()` method to update your model.
+
+> **Learn more:** [Custom Transition Classes](https://spatie.be/docs/laravel-model-states/v2/working-with-transitions/02-custom-transition-classes) in the Spatie documentation.
 
 ---
 
