@@ -14,6 +14,7 @@ class StateFusionRadio extends Radio implements HasStateAttributesContract
     {
         parent::setUp();
         $this->options(fn ($model) => (new $model)->getCasts()[$this->getAttribute()]::getStatesLabel($model));
+        $this->default(fn ($model) => $model::getDefaultStateFor($this->getAttribute()));
         $this->descriptions(fn ($model) => (new $model)->getCasts()[$this->getAttribute()]::getStatesDescription($model));
     }
 }
