@@ -14,6 +14,7 @@ class StateFusionToggleButtons extends ToggleButtons implements HasStateAttribut
     {
         parent::setUp();
         $this->options(fn ($model) => (new $model)->getCasts()[$this->getAttribute()]::getStatesLabel($model));
+        $this->default(fn ($model) => $model::getDefaultStateFor($this->getAttribute()));
         $this->icons(fn ($model) => (new $model)->getCasts()[$this->getAttribute()]::getStatesIcon($model));
         $this->colors(fn ($model) => (new $model)->getCasts()[$this->getAttribute()]::getStatesColor($model));
     }

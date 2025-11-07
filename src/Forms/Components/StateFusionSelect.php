@@ -14,5 +14,6 @@ class StateFusionSelect extends Select implements HasStateAttributesContract
     {
         parent::setUp();
         $this->options(fn ($model) => (new $model)->getCasts()[$this->getAttribute()]::getStatesLabel($model));
+        $this->default(fn ($model) => $model::getDefaultStateFor($this->getAttribute()));
     }
 }
