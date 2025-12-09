@@ -32,7 +32,7 @@ class StateFusionTabs
     /**
      * Create a new StateFusionTabs instance.
      *
-     * @param Model|string $model The Eloquent model class or instance
+     * @param  Model|string  $model  The Eloquent model class or instance
      */
     public function __construct(Model | string $model)
     {
@@ -42,8 +42,7 @@ class StateFusionTabs
     /**
      * Create a new StateFusionTabs instance using the static factory method.
      *
-     * @param Model|string $model The Eloquent model class or instance
-     * @return self
+     * @param  Model|string  $model  The Eloquent model class or instance
      */
     public static function make(Model | string $model): self
     {
@@ -55,8 +54,7 @@ class StateFusionTabs
      *
      * If not specified, the first attribute from the model's default states will be used.
      *
-     * @param string $attribute The attribute name containing the state
-     * @return self
+     * @param  string  $attribute  The attribute name containing the state
      */
     public function attribute(string $attribute): self
     {
@@ -68,8 +66,7 @@ class StateFusionTabs
     /**
      * Configure whether to include badges showing record counts on tabs.
      *
-     * @param bool $includeBadge Whether to show badges with counts
-     * @return self
+     * @param  bool  $includeBadge  Whether to show badges with counts
      */
     public function badge(bool $includeBadge = true): self
     {
@@ -81,8 +78,7 @@ class StateFusionTabs
     /**
      * Configure whether to include an "All" tab showing all records.
      *
-     * @param bool $includeAll Whether to include the "All" tab
-     * @return self
+     * @param  bool  $includeAll  Whether to include the "All" tab
      */
     public function includeAll(bool $includeAll = true): self
     {
