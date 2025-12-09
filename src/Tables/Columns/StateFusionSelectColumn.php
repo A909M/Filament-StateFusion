@@ -13,7 +13,7 @@ class StateFusionSelectColumn extends SelectColumn
     {
         parent::setUp();
         $this->selectablePlaceholder(false);
-        $this->options(fn ($model) => (new $model)->getCasts()[$this->getAttribute()]::getStatesLabel($model));
+        $this->options(fn ($record) => $record->getCasts()[$this->getAttribute()]::getStatesLabel($record));
         $this->disableOptionWhen(
             function (string $value, $record, $state) {
                 return ($state == $value) ? false : ! in_array($value, $record->{$this->getAttribute()}->transitionableStates());
