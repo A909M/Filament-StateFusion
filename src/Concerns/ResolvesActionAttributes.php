@@ -6,6 +6,7 @@ use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasDescription;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\ModelStates\State;
 
@@ -39,7 +40,7 @@ trait ResolvesActionAttributes
         return null;
     }
 
-    private function resolveLabel(State | string | null $state): ?string
+    private function resolveLabel(State | string | null $state): string | Htmlable | null
     {
         return $this->resolveFromTransitionOrState(
             $state,
@@ -48,7 +49,7 @@ trait ResolvesActionAttributes
         );
     }
 
-    private function resolveColor(State | string | null $state): ?string
+    private function resolveColor(State | string | null $state): string | array | null
     {
         return $this->resolveFromTransitionOrState(
             $state,
@@ -57,7 +58,7 @@ trait ResolvesActionAttributes
         );
     }
 
-    private function resolveIcon(State | string | null $state): ?string
+    private function resolveIcon(State | string | null $state): string | \BackedEnum | Htmlable | null
     {
         return $this->resolveFromTransitionOrState(
             $state,
