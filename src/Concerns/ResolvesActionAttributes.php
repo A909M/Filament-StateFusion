@@ -93,5 +93,14 @@ trait ResolvesActionAttributes
 
             return null;
         });
+
+        // Wizard
+        $this->steps(function () {
+            if ($this->hasTransitionClass() && method_exists($this->getTransitionClass(), 'steps')) {
+                return app($this->getTransitionClass())->steps();
+            }
+
+            return null;
+        });
     }
 }
