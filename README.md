@@ -48,9 +48,9 @@ Perfect for order processing, publishing workflows, approval systems, and any ap
 
 This plugin is designed to work with the following dependencies:
 
-- PHP: ^8.1
+- PHP: ^8.2
 - Laravel: ^10.0|^11.0|^12.0
-- Filament: ^3.0|^4.0
+- Filament: ^3.0|^4.0|^5.0
 - Spatie Laravel Model States: ^2.0
 
 
@@ -61,7 +61,7 @@ Install the package via Composer:
 | Plugin Version | Filament Version | Readme |
 |----------------|------------------|-------------|
 | 1.x            | 3.x              |  [Link](https://github.com/A909M/Filament-StateFusion/blob/v1.x/README.md)      |
-| 2.x            | 4.x              |  [Link](https://github.com/A909M/Filament-StateFusion/blob/2.x/README.md)     |
+| 2.x            | 4.x|5.x              |  [Link](https://github.com/A909M/Filament-StateFusion/blob/2.x/README.md)     |
 
 
 ```bash
